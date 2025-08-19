@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const session = require("express-session");
 const flash = require("express-flash");
 const multer  = require('multer');
+const moment = require("moment");
 require('dotenv').config();
 
 const database = require("./config/database");
@@ -39,12 +40,18 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 
 //App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 app.use(express.static(`${__dirname}/public`));
 
 // Routes
 routeAdmin(app);
 route(app);
+app.use((req, res) => {
+  res.render("client/pages/errors/404", {
+    pageTitle: "404 Not Found",
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
