@@ -70,6 +70,19 @@ if (buttonIcon) {
 }
 // End Show Popup
 
+// Show Typing
+var timeOut;
+const showTyping = () => {
+  socket.emit("CLIENT_SEND_TYPING", "show");
+
+  clearTimeout(timeOut);
+
+  timeOut = setTimeout(() => {
+    socket.emit("CLIENT_SEND_TYPING", "hidden");
+  }, 3000);
+}
+// End Show Typing
+
 // Insert Icon To Input
 const emojiPicker = document.querySelector("emoji-picker");
 if (emojiPicker) {
@@ -77,10 +90,17 @@ if (emojiPicker) {
   emojiPicker.addEventListener("emoji-click", (event) => {
     const icon = event.detail.unicode;
     inputChat.value = inputChat.value + icon;
+
+    const indexEnd = inputChat.value.length;
+
+    inputChat.setSelectionRange(indexEnd, indexEnd);
+    inputChat.focus();
+
+    showTyping();
   });
 
   // Input Keyup
-  var timeOut;
+
   inputChat.addEventListener("keyup", () => {
     socket.emit("CLIENT_SEND_TYPING", "show");
 
@@ -89,6 +109,7 @@ if (emojiPicker) {
     timeOut = setTimeout(() => {
       socket.emit("CLIENT_SEND_TYPING", "hidden");
     }, 3000);
+    // showTyping()
   });
   // End Input Keyup
 
@@ -103,6 +124,7 @@ const elementListTyping = document.querySelector(".chat .inner-list-typing");
 if (elementListTyping) {
   socket.on("SERVER_RETURN_TYPING", (data) => {
     if (data.type === "show") {
+      const bodyChat = document.querySelector(".chat .inner-body");
       const existTyping = elementListTyping.querySelector(`[user-id="${data.userId}"]`);
 
       if (!existTyping) {
@@ -119,12 +141,13 @@ if (elementListTyping) {
             </div>  
         `;
         elementListTyping.appendChild(boxTyping);
+        bodyChat.scrollTop = bodyChat.scrollHeight;
       }
       console.log("show");
 
     } else {
       const boxTypingRemove = elementListTyping.querySelector(`[user-id="${data.userId}"]`);
-      if(boxTypingRemove) {
+      if (boxTypingRemove) {
         elementListTyping.removeChild(boxTypingRemove);
       }
     }
