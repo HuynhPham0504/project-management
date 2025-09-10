@@ -7,6 +7,9 @@ const session = require("express-session");
 const flash = require("express-flash");
 const multer  = require('multer');
 const moment = require("moment");
+const http = require('http');
+const { Server } = require("socket.io");
+
 require('dotenv').config();
 
 const database = require("./config/database");
@@ -20,6 +23,12 @@ const route = require("./routes/client/index.route");
 
 const app = express();
 const port = process.env.PORT;
+
+// SocketIO
+const server = http.createServer(app);
+const io = new Server(server);
+global._io = io;
+// End SocketIO
 
 app.use(methodOverride("_method"));
 
@@ -53,6 +62,6 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });

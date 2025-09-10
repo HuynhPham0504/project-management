@@ -189,3 +189,160 @@
   cursor: pointer;
 }
 /* End Show Alert */
+
+/* Chat */
+.chat .inner-foot {
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 200px
+}
+
+.chat .inner-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.inner-incoming, .inner-outgoing {
+  display: flex;
+  flex-direction: column; /* xếp dọc: tên -> nội dung */
+  margin-bottom: 10px;
+  max-width: 75%;
+}
+
+.inner-incoming {
+  align-items: flex-start; /* tin nhắn người khác bên trái */
+}
+
+.inner-outgoing {
+  align-items: flex-end; /* tin nhắn của mình nằm bên phải */
+  margin-left: auto;
+}
+
+.inner-name {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 2px;
+  padding-left: 10px; /* lùi so với tin nhắn */
+  color: #555;
+}
+
+.inner-content {
+  background: #fff;
+  border-radius: 15px;
+  padding: 8px 12px;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  line-height: 1.4;
+}
+
+.inner-incoming .inner-content {
+  background: #e4e6eb;
+}
+
+.inner-outgoing .inner-content {
+  background: #0084ff;
+  color: #fff;
+}
+
+.chat input[type="text"] {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 20px;
+  flex: 1;
+}
+
+.chat form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat button {
+  background: #0084ff;
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat button:hover {
+  background: #006bbf;
+}
+/* End Chat */
+
+/* Emoji Icon */
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* End Emoji Icon */
+
+/* Typing */
+.inner-list-typing {
+  margin: 8px 0;
+}
+
+.box-typing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: sans-serif;
+}
+
+.inner-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.inner-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.inner-dots span {
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.2s infinite;
+}
+
+.inner-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.inner-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* End Typing */
